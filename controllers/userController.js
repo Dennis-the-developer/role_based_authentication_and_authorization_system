@@ -28,7 +28,7 @@ export const Register = async(req, res, next) => {
 }
 
 // login user
-export const login = async (req, res, next) => {
+export const Login = async (req, res, next) => {
     try {
         const {error, value} = AuthValidator.validate(req.body);
         if (error){
@@ -61,6 +61,30 @@ export const login = async (req, res, next) => {
             accessToken: token,
             user: user
         })
+    } catch (error) {
+        next(error);
+    }
+}
+
+export const AssignRole = (req, res, next) => {
+    try {
+        
+    } catch (error) {
+        next(error);
+    }
+}
+
+export const DeleteUser = (req, res, next) => {
+    try {
+        
+    } catch (error) {
+        next(error);
+    }
+}
+
+export const ViewPublicData = (req, res, next) => {
+    try {
+        
     } catch (error) {
         next(error);
     }
