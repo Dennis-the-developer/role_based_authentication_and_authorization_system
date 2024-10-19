@@ -21,8 +21,8 @@ dbconnection();
 app.use(express.json());
 
 // use routes
-app.use('api/v1', userRouter);
-app.use('api/v1', userProfileRouter);
+app.use('/api/v1', userRouter);
+app.use('/api/v1', userProfileRouter);
 
 //ExpressOasGenerator requests
 expressOasGenerator.handleRequests();
