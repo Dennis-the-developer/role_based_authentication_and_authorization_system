@@ -3,6 +3,7 @@ export const roles = [
         role: "admin",
         permissions: [
             "createUser",
+            "assignRole",
             "updateUser",
             "deleteUser"
         ]

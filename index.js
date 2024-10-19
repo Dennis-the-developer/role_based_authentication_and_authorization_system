@@ -1,6 +1,32 @@
 import express from "express";
+import expressOasGenerator from '@mickeymond/express-oas-generator';
+import mongoose from "mongoose";
+import { dbconnection } from "./config/db.js";
+import userRouter from "./routes/userRoute.js";
+import userProfileRouter from "./routes/userProfileRoute.js";
 
 const app = express();
+
+// ExpressOasGenerator ResponseHandler
+expressOasGenerator.handleResponses(app, {
+    alwaysServeDocs: true,
+    tags: ['Auth', 'Profile'],
+    mongooseModels: mongoose.modelNames()
+})
+
+// Database connection
+dbconnection();
+
+// Middlewares
+app.use(express.json());
+
+// use routes
+app.use(userRouter);
+app.use(userProfileRouter);
+
+//ExpressOasGenerator requests
+expressOasGenerator.handleRequests();
+app.use((req, res) => res.redirect('/api-docs'));
 
 const port = process.env.port || 3000;
 app.listen(port, () => {
