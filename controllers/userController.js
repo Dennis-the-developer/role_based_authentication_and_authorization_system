@@ -1,5 +1,5 @@
 import { UserModel } from "../models/userModel.js";
-import { AuthValidator, UserValidator, AssignRoleValidator } from "../schemas/userSchema.js";
+import { AuthValidator, UserValidator, AssignRoleValidator, User } from "../schemas/userSchema.js";
 import bcrypt from 'bcrypt';
 
 export const Register = async(req, res, next) => {
@@ -89,7 +89,19 @@ export const AssignRole = (req, res, next) => {
 
 export const DeleteUser = (req, res, next) => {
     try {
-        
+        const {error, value} = User.validate(req.body);
+        if (error) {
+            return res.status(400).send(error.details[0].message);
+        }
+        const {email, username} = value;
+        const query = {
+            $or: [
+                {email: email},
+                {username: username}
+            ]
+        }
+        UserModel.findOneAndDelete(query);
+        return res.status(200).send("User deleted successfully");
     } catch (error) {
         next(error);
     }

@@ -23,3 +23,9 @@ export const AssignRoleValidator = Joi.object({
     username: Joi.string().alphanum().default(''),
     newRole: Joi.string().valid('admin', 'user', 'guest').required()
 })
+
+export const User = Joi.object({
+
+    email: Joi.string().email().default(''),
+    username: Joi.string().alphanum().default(''),
+})
