@@ -2,6 +2,8 @@ import express from "express";
 import expressOasGenerator from '@mickeymond/express-oas-generator';
 import mongoose from "mongoose";
 import { dbconnection } from "./config/db.js";
+import passport from "passport";
+
 import userRouter from "./routes/userRoute.js";
 import userProfileRouter from "./routes/userProfileRoute.js";
 
@@ -19,6 +21,7 @@ dbconnection();
 
 // Middlewares
 app.use(express.json());
+app.use(passport.initialize());
 
 // use routes
 app.use('/api/v1', userRouter);
