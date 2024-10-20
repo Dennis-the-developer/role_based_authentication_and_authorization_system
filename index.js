@@ -21,6 +21,7 @@ expressOasGenerator.handleResponses(app, {
 dbconnection();
 
 // Middlewares
+app.use(express.json());
 app.use(cors());
 app.use(express.json());
 app.use(passport.initialize());
