@@ -4,6 +4,9 @@ import mongoose from "mongoose";
 import { dbconnection } from "./config/db.js";
 import passport from "passport";
 import cors from 'cors';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 import userRouter from "./routes/userRoute.js";
 import userProfileRouter from "./routes/userProfileRoute.js";
