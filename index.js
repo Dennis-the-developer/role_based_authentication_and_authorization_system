@@ -3,6 +3,7 @@ import expressOasGenerator from '@mickeymond/express-oas-generator';
 import mongoose from "mongoose";
 import { dbconnection } from "./config/db.js";
 import passport from "passport";
+import cors from 'cors';
 
 import userRouter from "./routes/userRoute.js";
 import userProfileRouter from "./routes/userProfileRoute.js";
@@ -20,6 +21,7 @@ expressOasGenerator.handleResponses(app, {
 dbconnection();
 
 // Middlewares
+app.use(cors());
 app.use(express.json());
 app.use(passport.initialize());
 

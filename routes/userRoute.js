@@ -9,7 +9,7 @@ const userRouter = Router();
 
 userRouter.post('/auth/register', isAuthenticated, hasPermission("createUser"), Register);
 userRouter.post('/auth/login', isAuthenticated, Login);
-userRouter.get('/auth/oauth/discord-authenticate', passport.authenticate('discord'));
+userRouter.get('/auth/oauth/discord-authorise', passport.authenticate('discord'));
 userRouter.post('/auth/oauth/discord/redirect', passport.authenticate('discord'), (req, res) => {
     res.status(200).send("redirected");
 });
