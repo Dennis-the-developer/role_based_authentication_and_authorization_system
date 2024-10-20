@@ -16,3 +16,10 @@ export const AuthValidator = Joi.object({
     password: Joi.string(),
      
 })
+
+export const AssignRoleValidator = Joi.object({
+
+    email: Joi.string().email().default(''),
+    username: Joi.string().alphanum().default(''),
+    newRole: Joi.string().valid('admin', 'user', 'guest').required()
+})
