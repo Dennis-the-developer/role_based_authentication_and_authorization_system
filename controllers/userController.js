@@ -54,7 +54,7 @@ export const Login = async (req, res, next) => {
         const token = jwt.sign(
             {id: user.id},
             process.env.JWT_PRIVATE_KEY,
-            {expiresIn: '72h'}
+            {expiresIn: '1h'}
         );
         // Return response
         res.status(201).json({
