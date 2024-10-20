@@ -1,4 +1,5 @@
 import { UserModel } from "../models/userModel.js";
+import { UserProfileModel } from "../models/userProfileModel.js";
 import { AuthValidator, UserValidator, AssignRoleValidator, User } from "../schemas/userSchema.js";
 import bcrypt from 'bcrypt';
 
@@ -109,7 +110,10 @@ export const DeleteUser = (req, res, next) => {
 
 export const ViewPublicData = (req, res, next) => {
     try {
-        
+        const publicData = UserProfileModel.find({}, 'firstname lastname gender');
+        return res.status(200).json({
+            publicData: publicData
+        })
     } catch (error) {
         next(error);
     }
