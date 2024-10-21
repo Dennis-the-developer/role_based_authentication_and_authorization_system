@@ -144,7 +144,7 @@ export const DeleteUser = (req, res, next) => {
 // Show data that can be viewed by users of any role
 export const ViewPublicData = async (req, res, next) => {
     try {
-        const publicData = await UserProfileModel.find({}).exec();
+        const publicData = await UserProfileModel.find({}, 'firstname lastname gender phone -_id').exec();
         if(publicData.length == 0){
             return res.status(404).send("No public data to view");
         }
