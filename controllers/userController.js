@@ -108,9 +108,12 @@ export const DeleteUser = (req, res, next) => {
     }
 }
 
-export const ViewPublicData = (req, res, next) => {
+export const ViewPublicData = async (req, res, next) => {
     try {
-        const publicData = UserProfileModel.find({}, 'firstname lastname gender');
+        const publicData = await UserProfileModel.find({}).exec();
+        if(publicData.length == 0){
+            return res.status(404).send("No public data to view");
+        }
         return res.status(200).json({
             publicData: publicData
         })
