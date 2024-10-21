@@ -22,7 +22,8 @@ export const CreateAdmin = async(req, res, next) => {
 
         const hashedPassword = await bcrypt.hash(password, 12);
         value.password = hashedPassword;
-        await UserModel.create(value);
+        const newUser = await UserModel.create(value);
+        await UserProfileModel.create({userId: newUser.id});
         return res.status(201).send('Admin created successfully');
 
     } catch (error) {
@@ -48,7 +49,8 @@ export const Register = async(req, res, next) => {
 
         const hashedPassword = await bcrypt.hash(password, 12);
         value.password = hashedPassword;
-        await UserModel.create(value);
+        const newUser = await UserModel.create(value);
+        await UserProfileModel.create({userId: newUser.id});
         return res.status(201).send('User registered successfully');
 
     } catch (error) {
