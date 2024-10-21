@@ -21,7 +21,7 @@ export const CreateAdmin = async(req, res, next) => {
         }
 
         const hashedPassword = await bcrypt.hash(password, 12);
-        password = hashedPassword;
+        value.password = hashedPassword;
         await UserModel.create(value);
         return res.status(201).send('Admin created successfully');
 
@@ -47,7 +47,7 @@ export const Register = async(req, res, next) => {
         }
 
         const hashedPassword = await bcrypt.hash(password, 12);
-        password = hashedPassword;
+        value.password = hashedPassword;
         await UserModel.create(value);
         return res.status(201).send('User registered successfully');
 
