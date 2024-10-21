@@ -29,7 +29,7 @@ export const AssignRoleValidator = Joi.object({
 
     email: Joi.string().email().default(''),
     username: Joi.string().alphanum().default(''),
-    newRole: Joi.string().valid('admin', 'user', 'guest').required()
+    newRole: Joi.string().lowercase().valid('admin', 'user', 'guest').required()
 })
 
 export const UserValidator = Joi.object({

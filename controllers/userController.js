@@ -99,7 +99,7 @@ export const Login = async (req, res, next) => {
 }
 
 // Assign role to user
-export const AssignRole = (req, res, next) => {
+export const AssignRole = async (req, res, next) => {
     try {
         const {error, value} = AssignRoleValidator.validate(req.body);
         if (error) {
@@ -112,16 +112,24 @@ export const AssignRole = (req, res, next) => {
                 {username: username}
             ]
         }
-        UserModel.findOneAndUpdate(query, {
+        const user = await UserModel.findOne(query);
+        const oldRole = user.role;
+        const updatedUserDetails = await UserModel.findOneAndUpdate(query, {
             role: newRole
-        }, options)
+        }, {returnDocument: 'after'})
+        return res.status(200).json({
+            username: user.username,
+            oldRole: oldRole,
+            newRole: updatedUserDetails.role,
+            message: "User role assigned successfully"
+        })
     } catch (error) {
         next(error);
     }
 }
 
 // Delete user
-export const DeleteUser = (req, res, next) => {
+export const DeleteUser = async (req, res, next) => {
     try {
         const {error, value} = UserValidator.validate(req.body);
         if (error) {
@@ -134,7 +142,7 @@ export const DeleteUser = (req, res, next) => {
                 {username: username}
             ]
         }
-        UserModel.findOneAndDelete(query);
+        await UserModel.findOneAndDelete(query);
         return res.status(200).send("User deleted successfully");
     } catch (error) {
         next(error);
