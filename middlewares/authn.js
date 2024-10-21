@@ -6,7 +6,7 @@ export const isAuthenticated = async (req, res, next) => {
         if (req.headers.authorization) {
             try {
                 const token = req.headers.authorization.split(' ')[1];
-                req.user = jwt.verify(token, process.env.JWT_PRIVATE_KE);
+                req.user = jwt.verify(token, process.env.JWT_PRIVATE_KEY);
                 const user = await UserModel.findById(req.user.id);
                 if (!user){
                     return res.status(401).send('User not found');
@@ -14,6 +14,7 @@ export const isAuthenticated = async (req, res, next) => {
                 next();
             } catch (error) {
                 res.status(401).send(error);
+                console.log(error);
             }
         }
         else {
