@@ -1,11 +1,26 @@
 import { UserModel } from "../models/userModel.js";
 import { UserProfileModel } from "../models/userProfileModel.js";
-import { AuthValidator, UserValidator, AssignRoleValidator, User } from "../schemas/userSchema.js";
+import { AuthValidator, RegisterUserValidator, AssignRoleValidator, UserValidator, CreateAdminValidator } from "../schemas/userSchema.js";
 import bcrypt from 'bcrypt';
+
+export const CreateAdmin = async(req, res, next) => {
+    try {
+        const {error, value} = CreateAdminValidator.validate(req.body);
+
+        if(error){
+            return res.status(400).send(error.details[0].message);
+        }
+
+        const {email, username, password, role} = value;
+        
+    } catch (error) {
+        next(error);
+    }
+}
 
 export const Register = async(req, res, next) => {
     try {
-        const {error, value} = UserValidator.validate(req.body);
+        const {error, value} = RegisterUserValidator.validate(req.body);
 
         if(error){
             return res.status(400).send(error.details[0].message);
@@ -90,7 +105,7 @@ export const AssignRole = (req, res, next) => {
 
 export const DeleteUser = (req, res, next) => {
     try {
-        const {error, value} = User.validate(req.body);
+        const {error, value} = UserValidator.validate(req.body);
         if (error) {
             return res.status(400).send(error.details[0].message);
         }

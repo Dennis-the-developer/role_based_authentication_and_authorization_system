@@ -4,7 +4,7 @@ const userProfileSchema = new Schema({
 
     firstname: {type: String},
     lastname: {type: String},
-    gender: {type: String, enum: ['Male', 'Female', 'Other']},
+    gender: {type: String, enum: ['male', 'female', 'other']},
     phone: {type: String},
     userId: {type: Types.ObjectId, ref: 'User'}
 

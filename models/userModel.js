@@ -4,9 +4,8 @@ const userSchema = new Schema({
 
     email: {type: String, unique: true, required: true},
     username: {type: String, unique: true, required: true},
-    password: {type: String},
-    userProfileId: {type: Types.object, ref: 'UserProfile'},
-    role: {type: String, enum: ['admin', 'user', 'guest']},
+    password: {type: String, required: true},
+    role: {type: String, enum: ['admin', 'user', 'guest'], default: 'guest'},
     userProfileId: {type: Types.ObjectId, ref: 'UserProfile'}
 
 }, {
