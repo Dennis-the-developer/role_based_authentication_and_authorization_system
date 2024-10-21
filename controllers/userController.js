@@ -2,6 +2,7 @@ import { UserModel } from "../models/userModel.js";
 import { UserProfileModel } from "../models/userProfileModel.js";
 import { AuthValidator, RegisterUserValidator, AssignRoleValidator, UserValidator, CreateAdminValidator } from "../schemas/userSchema.js";
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 
 // Create an admin
