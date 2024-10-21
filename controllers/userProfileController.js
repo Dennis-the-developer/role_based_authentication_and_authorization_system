@@ -2,6 +2,7 @@ import { UserModel } from "../models/userModel.js";
 import { UserProfileModel } from "../models/userProfileModel.js";
 import { UserProfileValidator } from "../schemas/userProfileSchema.js";
 
+// Get user profile
 export const GetProfile = async (req, res, next) => {
     try {
         const userId = req?.user?.id;
@@ -18,6 +19,7 @@ export const GetProfile = async (req, res, next) => {
     }
 }
 
+// Update user profile
 export const UpdateProfile = async (req, res, next) => {
     try {
         const {error, value} = UserProfileValidator.validate(req.body);

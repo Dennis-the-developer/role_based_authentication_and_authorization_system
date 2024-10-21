@@ -2,6 +2,9 @@ Ideation Axis Intenship
 
 Assignment 2 - Build a Role-Based Authentication and Authorization System
 
+Note: An endpoint for creating admins has been implemented. This is to allow users of this api to be able to
+perform certain admin roles such as creating users, assigning roles, deleting users, etc.
+
 Create a backend API that implements both and using JWT for authentication and role-based access control (RBAC) for authorization. Below are the task requirements.
 
 1. User Authentication:

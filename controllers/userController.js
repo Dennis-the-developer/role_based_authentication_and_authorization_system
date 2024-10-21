@@ -3,6 +3,8 @@ import { UserProfileModel } from "../models/userProfileModel.js";
 import { AuthValidator, RegisterUserValidator, AssignRoleValidator, UserValidator, CreateAdminValidator } from "../schemas/userSchema.js";
 import bcrypt from 'bcrypt';
 
+
+// Create an admin
 export const CreateAdmin = async(req, res, next) => {
     try {
         const {error, value} = CreateAdminValidator.validate(req.body);
@@ -11,13 +13,24 @@ export const CreateAdmin = async(req, res, next) => {
             return res.status(400).send(error.details[0].message);
         }
 
-        const {email, username, password, role} = value;
-        
+        const {email, password} = value;
+        const user = await UserModel.findOne({email});
+
+        if(user){
+            return res.status(401).send('Admin already exist');
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 12);
+        password = hashedPassword;
+        await UserModel.create(value);
+        return res.status(201).send('Admin created successfully');
+
     } catch (error) {
         next(error);
     }
 }
 
+// Register users
 export const Register = async(req, res, next) => {
     try {
         const {error, value} = RegisterUserValidator.validate(req.body);
@@ -43,7 +56,7 @@ export const Register = async(req, res, next) => {
     }
 }
 
-// login user
+// Login user
 export const Login = async (req, res, next) => {
     try {
         const {error, value} = AuthValidator.validate(req.body);
@@ -82,6 +95,7 @@ export const Login = async (req, res, next) => {
     }
 }
 
+// Assign role to user
 export const AssignRole = (req, res, next) => {
     try {
         const {error, value} = AssignRoleValidator.validate(req.body);
@@ -103,6 +117,7 @@ export const AssignRole = (req, res, next) => {
     }
 }
 
+// Delete user
 export const DeleteUser = (req, res, next) => {
     try {
         const {error, value} = UserValidator.validate(req.body);
@@ -123,6 +138,7 @@ export const DeleteUser = (req, res, next) => {
     }
 }
 
+// Show data that can be viewed by users of any role
 export const ViewPublicData = async (req, res, next) => {
     try {
         const publicData = await UserProfileModel.find({}).exec();
