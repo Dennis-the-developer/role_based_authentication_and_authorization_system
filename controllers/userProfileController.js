@@ -10,9 +10,10 @@ export const GetProfile = async (req, res, next) => {
         if(!user){
             return res.status(401).send("User not found");
         }
-        const userProfile = await UserModel.findById(userId).populate({path: "UserProfile"});
+        const userProfile = await UserModel.findById(userId).select('-_id email username role').populate('otherDetails');
         return res.status(200).json({
-            userProfile
+            userProfile: userProfile,
+            message: "Get profile endpoint"
         })
     } catch (error) {
         next(error);
@@ -31,7 +32,7 @@ export const UpdateProfile = async (req, res, next) => {
         if(!user){
             return res.status(401).send("User not found");
         }
-        const updatedProfile = await UserProfileModel.findByIdAndUpdate(userId, value, {new: true});
+        const updatedProfile = await UserProfileModel.findOneAndUpdate({userId}, value, {new: true});
         return res.status(200).json({
             message: "Profile updated successfully",
             updatedProfile: updatedProfile

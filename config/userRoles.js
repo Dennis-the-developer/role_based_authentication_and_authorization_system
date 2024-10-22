@@ -5,7 +5,10 @@ export const roles = [
             "createUser",
             "assignRole",
             "updateUser",
-            "deleteUser"
+            "deleteUser",
+            // Profile
+            "readOwnProfile",
+            "updateOwnProfile"
         ]
     },
     {

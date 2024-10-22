@@ -6,7 +6,8 @@ const userSchema = new Schema({
     username: {type: String, unique: true, required: true},
     password: {type: String, required: true},
     role: {type: String, enum: ['admin', 'user', 'guest'], default: 'guest'},
-    userProfileId: {type: Types.ObjectId, ref: 'UserProfile'}
+    userId: {type: Types.ObjectId, ref: 'UserProfile'},
+    otherDetails: {type: Types.ObjectId, ref: 'UserProfile'},
 
 }, {
     timestamps: true,
