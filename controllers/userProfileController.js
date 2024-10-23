@@ -10,10 +10,17 @@ export const GetProfile = async (req, res, next) => {
         if(!user){
             return res.status(401).send("User not found");
         }
-        const userProfile = await UserModel.findById(userId).select('-_id email username role').populate('otherDetails');
+        const userProfile = await UserModel.findById(userId).populate('otherDetails').lean();
         return res.status(200).json({
-            userProfile: userProfile,
-            message: "Get profile endpoint"
+            profile: {
+                email: userProfile.email,
+                username: userProfile.username,
+                role: userProfile.role,
+                firstname: userProfile.otherDetails.firstname,
+                lastname: userProfile.otherDetails.lastname,
+                gender: userProfile.otherDetails.gender,
+                phone: userProfile.otherDetails.phone
+            },
         })
     } catch (error) {
         next(error);
